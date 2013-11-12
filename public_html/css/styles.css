@@ -1,0 +1,359 @@
+/**
+ * CSS file for example gully demo
+ **/
+
+html { height: 100% }
+body { 
+	height: 100%; 
+	margin: 0px; 
+	padding: 0px; 
+	overflow: hidden;
+	font-size: 1em;
+	background-color: #ccc;
+}
+/*** Page Layout ***/
+#map_container{
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 10px 0 10px;
+  clear: both;
+
+}
+#map { 
+	width: 50%;
+	height:100%;
+	min-height: 320px;
+	top:-8px;
+	clear:both;
+}
+#chart { 
+	width: 50%;
+	height:95%;
+	min-height: 400px;
+	position: relative;
+	left: 50%;
+	background-color: transparent;
+	z-index: 99;
+	position: absolute;
+	top: 0px;
+	clear: both;
+	float:left;
+}
+#top-right-box{
+	height: 50%;
+	width:48%;
+	background-color: white;
+	margin-left: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border-radius: 10px;
+	float: left;
+}
+#top-left-box{
+	height: 50%;
+	width:48%;
+	background-color: white;
+	margin-left: 8px;
+	margin-top: 8px;
+	margin-bottom: 8px;
+	border-radius: 10px;
+	float: left;
+}
+#bottom-box{
+	height: 50%;
+	width:97%;
+	background-color: white;
+	margin-left: 8px;
+	margin-right: 8px;
+	margin-bottom: 8px;
+	clear:both;
+	border-radius: 10px;
+	float: left;
+}
+/*** UI elements ***/
+.show{
+	display:block;
+}
+
+.hide{
+	display:none;
+}
+
+.uk_boundary{
+	fill: rgba(0, 0, 0, 0.10);
+	stroke: rgba(255, 255, 255, 0.75);
+	stroke-width: 2px;
+}
+/*** Reset Button***/
+.reset {
+	position: relative;
+	min-height: 15px;
+	min-width:60px;
+	width: 2.5em;
+	height:1.8em;
+	left: 2%;
+	bottom: 0.4em;
+	-moz-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	-webkit-box-shadow:inset 0px 1px 0px 0px #ffffff;
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #ededed), color-stop(1, #dfdfdf) );
+	background:-moz-linear-gradient( center top, #ededed 5%, #dfdfdf 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#ededed', endColorstr='#dfdfdf');
+	background-color:#ededed;
+	-webkit-border-top-left-radius:6px;
+	-moz-border-radius-topleft:6px;
+	border-top-left-radius:6px;
+	-webkit-border-top-right-radius:6px;
+	-moz-border-radius-topright:6px;
+	border-top-right-radius:6px;
+	-webkit-border-bottom-right-radius:6px;
+	-moz-border-radius-bottomright:6px;
+	border-bottom-right-radius:6px;
+	-webkit-border-bottom-left-radius:6px;
+	-moz-border-radius-bottomleft:6px;
+	border-bottom-left-radius:6px;
+	text-indent:0;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	color:#777777;
+	font-family:Verdana;
+	font-size:15px;
+	font-weight:bold;
+	font-style:normal;
+	line-height:33px;
+	text-decoration:none;
+	text-align:center;
+	text-shadow:1px 1px 0px #ffffff;
+}
+.reset:hover {
+	background:-webkit-gradient( linear, left top, left bottom, color-stop(0.05, #dfdfdf), color-stop(1, #ededed) );
+	background:-moz-linear-gradient( center top, #dfdfdf 5%, #ededed 100% );
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr='#dfdfdf', endColorstr='#ededed');
+	background-color:#dfdfdf;
+}
+
+/*** Map Elements***/
+.mouseovered {
+	stroke: red;
+	stroke-width:2px;
+}
+.gully-stroke{
+	stroke: #baa5d5;
+	stroke-width: 1px;
+}
+.regular-stroke{
+	stroke: white;
+	stroke-width: 1px;
+}
+.gully-dot {
+	width: 15px;
+	height: 15px;
+	fill:#592680;
+}
+/**** FONTS ****/
+
+.title{
+	color: #03426A;
+}
+.bold{
+	font-weight: bold;
+}
+
+.text{
+	color: #24587A;
+}
+.smallfont{
+	font-size: 12;
+}
+.graph-title{
+	fill: #6777aa;
+	font-weight: bold;
+	font-size: 16;
+}
+.legend-text{
+	color: grey;
+	font-weight: bold;
+	font-size: 13;
+}
+.piechart-text{
+	color: grey;
+	font-weight: bold;
+	font-size: 15;
+}
+/*** chart area ***/
+#bottom-box-left{
+	position: relative;
+	left:0;
+	width: 48%;
+	height: 100%;
+	float:left;
+	overflow: auto;
+}
+#bottom-box-right{
+	position: relative;
+	/*left:50%;*/
+	width: 48%;
+	height: 100%;
+	float:right;
+	overflow: auto;
+}
+#gully_type_chart{
+	height: 80%;
+	width: 90%;
+	float:left;
+	overflow: auto;
+}
+#gully_silt_chart{
+	height: 80%;
+	width:90%;
+	float: left;
+	overflow: auto;
+}
+#gully_state_chart{
+	height: 80%;
+	width:90%;
+	float: left;
+	overflow: auto;
+}
+.description{
+	margin: 10px;
+	height: auto;
+	min-height: 75%;
+	max-height: 80%;
+	overflow: auto;
+}
+.chart_title{
+	width: 250px;
+	height:10%;
+	position: relative;
+}
+/*** Responsive Screen Sizes ***/
+@media (min-width: 1001px) {
+	div#date-slider{
+		position:absol/ute;
+		width: 50%;
+		bottom:100px;
+	}
+}
+@media (max-width: 1000px) {
+    body {
+ 	   font-size: .8em; 
+ 	   overflow: auto;
+	}
+	div#date-slider{
+		width: 100%;
+		bottom:10px;
+		position: relative;
+	}
+  	#map { 
+		width: 100%;
+		height:320px;
+	}
+	#chart { 
+		width: 100%;
+		height:auto;
+		position: static;
+		background-color: transparent;
+		clear: both;
+		float:left;
+	}
+	#top-right-box{
+		height: 320px;
+		width:50%;
+		margin-top: 2px;
+		border-radius: 10px;
+		float: left;
+		margin-left: 1%;
+	}
+
+	#top-left-box{
+		height: 320px;
+		width:49%;
+		margin-top: 2px;
+		border-radius: 10px;
+		float: left;
+		margin-left: 0px;
+	}
+	#bottom-box{
+		height: auto;
+		width:100%;
+		margin-top: 2px;
+		clear:both;
+		border-radius: 10px;
+		float: left;
+		margin-left: 0px;
+	}
+	#bottom-box-left{
+		width: 50%;
+		height: 320;
+		float:left;
+	}
+	#bottom-box-right{
+		
+		width: 50%;
+		height:320;
+		float:left;
+	}
+}
+@media (max-width: 500px) {
+	body {
+	   font-size: .8em; 
+	   overflow:auto;
+	}
+	div#date-slider{
+		width: 100%;
+		bottom:10px;
+		position: relative;
+	}
+	#map { 
+		width: 100%;
+		height:320px;
+	}
+	#chart { 
+		width: 100%;
+		height:auto;
+		position: static;
+		background-color: transparent;
+		clear: both;
+		float:left;
+	}
+	#top-right-box{
+		height: 320px;
+		width:100%;
+		margin-top: 2px;
+		border-radius: 10px;
+		float: left;
+		margin-left: 0px;
+	}
+	#top-left-box{
+		height: 250px;
+		width:100%;
+		margin-top: 2px;
+		border-radius: 10px;
+		float: left;
+		margin-left: 0px;
+	}
+	#bottom-box{
+		height: auto;
+		min-height: 320px;
+		max-height: 640px;
+		width:100%;
+		margin-top: 2px;
+		clear:both;
+		border-radius: 10px;
+		float: left;
+		margin-left: 0px;
+	}
+	#bottom-box-left{
+		width: 100%;
+		height: 320px;
+		float:left;
+	}
+	#bottom-box-right{
+		
+		width: 100%;
+		height:320px;
+		float:left;
+	}
+}
