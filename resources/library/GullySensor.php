@@ -26,10 +26,11 @@ class GullySensor {
   		$decoded_object=json_decode($data, true);
   		
   		foreach($decoded_object[0] as $key=>$value){
+        $key = strtolower($key);
 		  if(strpos($key, "silt")!==false){
 		    $this->siltlevel= $value;
 		  }
-		  if(strpos($key, "tate")!==false){//state
+		  if(strpos($key, "state")!==false){//state
 		  	if (strtolower($value) =="clean and running")
                 $this->gullystate= "Clean & Running";
             else if (strtolower($value)=="blocked and cleaned")
@@ -42,7 +43,7 @@ class GullySensor {
                 $this->gullystate= "No Info";
 		    $this->gullystate= $value;
 		  }
-		  if(strpos($key, "ype")!==false){//type
+		  if(strpos($key, "type")!==false){//type
 		    $this->gullytype= $value;
 		  }
 		  if(strpos($key, "accessibility")!==false){
