@@ -63,25 +63,8 @@ $(document).ready(function() {
 	  	$(".reset").click(function(){
 	  		clear_map();
 	  		$(".tooltip").hide();
-	  		var mode= $("#dropdown_select").val();
-	  		switch (mode){
-	  			case "gully_overview":
-	  				$( "#gully-dot-control" ).prop("checked", true);
-	  				map.addLayer(heatmapLayer);
-	  				get_gully_overview();
-	  				break;
-	  			case "gully_roadwork":
-	  				$("#top-right-box").html("");
-	  				get_gully_roadwork();
-	  				create_timeline();
-	  				break;
-	  			case "flow_time":
-	  				get_flow_time();
-	  				break;
-	  			case "flow_roadwork":
-	  				get_flow_roadwork();
-	  				break;
-	  		}
+	  		map.addLayer(heatmapLayer);
+	  		get_gully_overview();
 	  	});
 
 		function initialize(){
@@ -99,10 +82,6 @@ $(document).ready(function() {
 		function clear_map(){
 			g.selectAll(".gully-map-points").data([]).exit().remove();
 			g.selectAll(".boundary").data([]).exit().remove();
-			g.selectAll(".redcar_roadwork_points").data([]).exit().remove();
-			g.selectAll(".region_points").data([]).exit().remove();
-			g.selectAll(".data_points").data([]).exit().remove();
-			g.selectAll(".roadwork_points").data([]).exit().remove();
 			map.removeLayer(heatmapLayer);
 			$(".tooltip").hide();
 			$("#date-slider").remove();
@@ -348,9 +327,6 @@ $(document).ready(function() {
 					    var chart2 = nv.models.pieChart()
 					        .x(function(d) { return d.key })
 					        .y(function(d) { return d.y })
-					        // .height(height)
-					        // .width(width)
-							// .margin ({top: 20, right: 20, bottom: 20, left: 20})
 						    .color(myColors2);
 
 					      chart2.pie.pieLabelsOutside(false).labelType("percent");
@@ -360,17 +336,11 @@ $(document).ready(function() {
 					          .call(chart2);
 					      d3.select('#gully_type_title')
 						  	.append("text")
-						  	// .attr("width", width)
-						  	// .attr("height", height)
 						    .attr("x", "50%")             
 						  	.attr("y", "50%")
 							.attr("class", "graph-title")
 							.attr("text-anchor", "middle")  
 							.text("Gully Types");
-						//move legend
-						// d3.select(".nv-legendWrap")
-						// 	.attr("class", "legend-text");
-  							// .attr("transform", "translate(-10,-20)");
   						nv.utils.windowResize(chart2.update);
 					    return chart2;
 					},function(){
@@ -407,27 +377,6 @@ $(document).ready(function() {
 		    g   .attr("transform", "translate(" + -bottomLeft[0] + "," + -topRight[1] + ")");
 		    feature.attr("d", path);
 		    //redraw the pins due to zoom level
-				g.selectAll(".data_points")
-		    		.attr("cx", function(d) {
-										return project([d["tf_geo"]["coordinates"][0], d["tf_geo"]["coordinates"][1]])[0];
-					                })
-					                .attr("cy", function(d) {
-					                    return project([d["tf_geo"]["coordinates"][0], d["tf_geo"]["coordinates"][1]])[1];
-					                });
-				g.selectAll(".region_rect")
-		    		.attr("x", function(d) {
-										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
-					                })
-					                .attr("y", function(d) {
-					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
-					                });
-				g.selectAll(".region_points")
-		    		.attr("x", function(d) {
-										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
-					                })
-					                .attr("y", function(d) {
-					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
-					                });
 				g.selectAll(".gully-map-points")
 		    		.attr("cx", function(d) {
 										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
@@ -435,27 +384,6 @@ $(document).ready(function() {
 					                .attr("cy", function(d) {
 					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
 					                });
-				g.selectAll(".trafficFlow_points")
-		    		.attr("cx", function(d) {
-										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
-					                })
-					                .attr("cy", function(d) {
-					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
-					                });
-				g.selectAll(".redcar_roadwork_points")
-		    		.attr('d', function(d) { 
-			        	var x = project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0]; 
-			        	y = project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
-			        	return 'M ' + x +' '+ y + ' l 10 10 l -20 0 z';
-			      	})
-
-			    g.selectAll(".roadwork_points")
-		    		.attr("cx", function(d) {
-						return project([d["rw_geo"]["coordinates"][0], d["rw_geo"]["coordinates"][1]])[0];
-					})
-					.attr("cy", function(d) {
-					    return project([d["rw_geo"]["coordinates"][0], d["rw_geo"]["coordinates"][1]])[1];
-					});
 				g.selectAll(".boundary")
 		    		.attr("cx", function(d) {
 						return project([d["region_lng"], d["region_lat"]])[0];
@@ -473,16 +401,6 @@ $(document).ready(function() {
 		    return [point.x, point.y];
 		}
 
-		function get_key_by_object_value(searchKey, searchVal){
-			    for( var key in layer ) {
-			    	var obj= layer[key];
-			    	if( obj.hasOwnProperty(searchKey)) {
-			    		if (obj[searchKey]=== searchVal)
-			    			return key;
-			    	}
-			    }
-		}
-
 	});//end of D3 loop
 
 	$("#map").on('click', function(event) {
@@ -494,14 +412,4 @@ $(document).ready(function() {
 	$(".tooltip").on('dblclick click', function(event) {
 		event.stopPropagation();
 	});
-
-
-	function getRandomColor() {
-		var letters = '0123456789ABCDEF'.split('');
-		var color = '#';
-		for (var i = 0; i < 6; i++ ) {
-			color += letters[Math.round(Math.random() * 15)];
-		}
-		return color;
-	}
 });
