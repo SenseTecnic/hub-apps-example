@@ -15,16 +15,18 @@
  **/
 include "../library/Hypercat.php"; // Hypercat PHP Client API
 include "../library/GullySensor.php"; // Gully Sensor Class
+include "../config.php"; // Config file
 
-/*TODO:Read from config file*/
 //MongoDB Config Variables 
-$dbhost= 'localhost';
-$dbname = "demo";
-$collection = "gully";
+$dbhost= $config["mongo"]["dbhost"];
+$dbname = $config["mongo"]["dbname"];
+$collection = $config["mongo"]["collection"];
+
+
 // Hypercat API Config Variables 
-$api_key="f9c0e0b7-8c4a-4f32-bf9c-7a7fac849659";
-$base_url="http://smartstreets.sensetecnic.com";
-$catalogue_uri="/cat/sensors";
+$api_key= $config["hypercat-api"]["api_key"];
+$base_url = $config["hypercat-api"]["base_url"];
+$catalogue_uri = $config["hypercat-api"]["catalogue_url"];
 
 // Initialise MongoDB connection
 try {
