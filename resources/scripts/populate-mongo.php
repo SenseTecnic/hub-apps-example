@@ -30,7 +30,7 @@ $catalogue_uri = $config["hypercat-api"]["catalogue_url"];
 
 // Initialise MongoDB connection
 try {
-	$m = new Mongo("mongodb://$dbhost");
+	$m = new MongoClient("mongodb://$dbhost");
 } catch (MongoConnectionException $e) {
 	die('Error connecting to MongoDB server.');
 }
@@ -77,6 +77,8 @@ do{
 			print_r ("Created new Sensor item! New sensor Id: ".$sensor_id."\n");
 			$response=curl_with_authentication($data_href, $api_key);
 			// Insert new item to MongoDB
+			var_dump($data_href);
+			var_dump($response);
 			$gully = new GullySensor($response, $lastupdate);
 			$collection->insert($gully->create_db_object());
 		}else{
