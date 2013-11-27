@@ -25,7 +25,7 @@ class GullySensor {
   		$this->lastupdate=$lastupdate;
   		$decoded_object=json_decode($data, true);
   		
-  		foreach($decoded_object[0] as $key=>$value){
+  		foreach($decoded_object["data"][0] as $key=>$value){
         $key = strtolower($key);
 		  if(strpos($key, "silt")!==false){
 		    $this->siltlevel= $value;
@@ -50,12 +50,12 @@ class GullySensor {
 		    $this->accessibility= $value;
 		  }
 		}
-  		$this->gullyid= $decoded_object[0]["id"];
-  		$this->sensorid= $decoded_object[0]["sensor_id"];
-  		$this->timestamp= $decoded_object[0]["timestamp"];
-  		$this->sensorname= $decoded_object[0]["sensor_name"];
-  		$this->lat= $decoded_object[0]["lat"];
-  		$this->lng= $decoded_object[0]["lng"];
+  		$this->gullyid= $decoded_object["data"][0]["id"];
+  		$this->sensorid= $decoded_object["data"][0]["sensor_id"];
+  		$this->timestamp= $decoded_object["data"][0]["timestamp"];
+  		$this->sensorname= $decoded_object["data"][0]["sensor_name"];
+  		$this->lat= $decoded_object["data"][0]["lat"];
+  		$this->lng= $decoded_object["data"][0]["lng"];
   	}
 
   	public function create_DB_object(){
