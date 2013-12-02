@@ -19,7 +19,7 @@
 	  	<script type="text/javascript" src="./js/external/heatmap-leaflet.js"></script>
 	  	<script type="text/javascript" src="./js/external/heatmap.js"></script>
 	  	<script type="text/javascript" src="./js/external/jstree.min.js"></script>
-	  	<link rel="polygons" type="application/json" href="/media/maps/regions.json">
+	  	<link rel="polygons" type="application/json" href="./media/maps/regions.json">
 	  	<script type="text/javascript" src="./js/index.js"></script>
 	</head>
 	<body>
