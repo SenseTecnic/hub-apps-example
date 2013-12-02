@@ -385,7 +385,7 @@ $(document).ready(function() {
                         $("#tooltip_content").append("<div style='text-align: left;'>Case Type: <span class='bold'>"+d.casetype+"</span></div>");
                         $("#tooltip_content").append("<div style='text-align: left;'>Department: <span class='bold'>"+d.department+"</span></div>");
                         $("#tooltip_content").append("<div style='text-align: left;'>Division: <span class='bold'>"+d.division+"</span></div>");
-                        $("#tooltip_content").append("<div style='text-align: left;'>Date : <span class='bold'>"+new Date(d.date.sec)+"</span></div>");
+                        $("#tooltip_content").append("<div style='text-align: left;'>Date : <span class='bold'>"+new Date(1000*d.date.sec)+"</span></div>");
                         $("#tooltip_content").append("<div style='text-align: left;'>Location: <span class='bold'>"+d["address"]+"</span></div>");
                         d3.select(this)
                            .classed("case-unselected", false)
