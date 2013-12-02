@@ -674,19 +674,19 @@ $(document).ready(function() {
 	// });
 	/************************** Mongo Query AJAX Calls **************************/
 	function queryDistinctFields (field, query, callback){
-		$.post( "/ajax/queryDistinctFields.php", {collection: "case", field: field, query: query})
+		$.post( "./ajax/queryDistinctFields.php", {collection: "case", field: field, query: query})
 			.done(function( response ){
 				callback(response);
 		});
 	}
 	function query311MapPins(type, query, callback){
-		$.post( "/ajax/query311Cases.php", {collection: "case", type: type, query: query})
+		$.post( "./ajax/query311Cases.php", {collection: "case", type: type, query: query})
 			.done(function( response ){
 				callback(response);
 		});
 	}
 	function query311MapPinsWithDateRange(type, query, callback){
-		$.post( "/ajax/query311CasesWithDateRange.php", {collection: "case", type: type, query: query})
+		$.post( "./ajax/query311CasesWithDateRange.php", {collection: "case", type: type, query: query})
 			.done(function( response ){
 				callback(response);
 		});
