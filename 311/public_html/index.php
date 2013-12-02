@@ -2,25 +2,25 @@
 	<head>
 		<title>Vanocouver 311 Visualisation</title>
 	  	<!-- CSS files here -->
-	  	<link rel="stylesheet" type="text/css" href="/css/external/nv.d3.css" />
+	  	<link rel="stylesheet" type="text/css" href="./css/external/nv.d3.css" />
 	  	<!-- <link rel="stylesheet" type="text/css" href="/css/external/jquery.tree.min.css" /> -->
 	  	<link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
 	  	<link rel="stylesheet" type="text/css" href="http://ajax.aspnetcdn.com/ajax/jquery.ui/1.10.1/themes/black-tie/jquery-ui.min.css"/>
-	  	<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+	  	<link rel="stylesheet" type="text/css" href="./css/styles.css" />
 	  	<!-- Javascript files here -->
 	  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	  	<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 	  	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 	  	<script type="text/javascript" src="http://d3js.org/topojson.v1.min.js"></script>
 	  	<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-	  	<script type="text/javascript" src="/js/external/nv.d3.min.js"></script>
-	  	<script type="text/javascript" src="/js/external/crossfilter.min.js"></script>
-	  	<script type="text/javascript" src="/js/external/QuadTree.js"></script>	
-	  	<script type="text/javascript" src="/js/external/heatmap-leaflet.js"></script>
-	  	<script type="text/javascript" src="/js/external/heatmap.js"></script>
-	  	<script type="text/javascript" src="/js/external/jstree.min.js"></script>
+	  	<script type="text/javascript" src="./js/external/nv.d3.min.js"></script>
+	  	<script type="text/javascript" src="./js/external/crossfilter.min.js"></script>
+	  	<script type="text/javascript" src="./js/external/QuadTree.js"></script>	
+	  	<script type="text/javascript" src="./js/external/heatmap-leaflet.js"></script>
+	  	<script type="text/javascript" src="./js/external/heatmap.js"></script>
+	  	<script type="text/javascript" src="./js/external/jstree.min.js"></script>
 	  	<link rel="polygons" type="application/json" href="/media/maps/regions.json">
-	  	<script type="text/javascript" src="/js/index.js"></script>
+	  	<script type="text/javascript" src="./js/index.js"></script>
 	</head>
 	<body>
 		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0"/>
