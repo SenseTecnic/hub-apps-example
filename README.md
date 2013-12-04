@@ -12,8 +12,5 @@ How to Use
 ----------
 1. Install MongoDB
 2. Download the code
-3. Run script to populate data in MongoDB, script location: "/resources/scripts/populate-mongo.php" (Note: set up cron job to run script periodically to retrieve new data)
+3. Run script to populate data in MongoDB, script location varies depending on example chosen, please view README of individual examples
 4. Deploy site
-
-
-
