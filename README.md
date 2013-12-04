@@ -1,6 +1,7 @@
 hub-apps-example
 ================
-This application visualises UK gully and roadwork data that is available on the Smartstreets hub: http://smartstreets.sensetecnic.com/
+This contains example PHP applications for Smartstreets and Urban Opus hubs, which app developers can use as reference. 
+
 
 Dependencies
 ------------
@@ -11,9 +12,5 @@ How to Use
 ----------
 1. Install MongoDB
 2. Download the code
-3. Run script to populate gully sensor data in MongoDB, script location: "/resources/scripts/populate-mongo-gully.php" (Note: set up cron job to run script periodically to retrieve new data)
-4. Run script to populate roadwork sensor data in MongoDB, script location: "/resources/scripts/populate-mongo-roadwork.php" (Note: set up cron job to run script periodically to retrieve new data)
-5. Deploy site
-
-
-
+3. Run script to populate data in MongoDB, script location varies depending on example chosen, please view README of individual examples
+4. Deploy site
