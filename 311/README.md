@@ -1,7 +1,6 @@
-hub-apps-example
+Vancouver 311
 ================
-This contains example PHP applications for Smartstreets and Urban Opus hubs, which app developers can use as reference. 
-
+This application visualises Vancouver 311 data that is published monthly here: http://data.vancouver.ca/datacatalogue/311caseLocationDetails.htm
 
 Dependencies
 ------------
@@ -12,7 +11,7 @@ How to Use
 ----------
 1. Install MongoDB
 2. Download the code
-3. Run script to populate data in MongoDB, script location: "/resources/scripts/populate-mongo.php" (Note: set up cron job to run script periodically to retrieve new data)
+3. Run script to populate data in MongoDB, script location: "hub-apps-example/311/script/populate_data.php"
 4. Deploy site
 
 
