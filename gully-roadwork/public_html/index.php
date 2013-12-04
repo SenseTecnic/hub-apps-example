@@ -2,11 +2,11 @@
 	<head>
 		<title>Simple PHP Demo Framework</title>
 	  	<!-- CSS files here -->
-	  	<link rel="stylesheet" type="text/css" href="/css/external/nv.d3.css" />
+	  	<link rel="stylesheet" type="text/css" href="./css/external/nv.d3.css" />
 	  	<link rel="stylesheet" type="text/css" href="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.css" />
 	  	<link rel="stylesheet" type="text/css" href="http://code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
-	  	<link rel="stylesheet" type="text/css" href="/css/external/iThing.css" />
-	  	<link rel="stylesheet" type="text/css" href="/css/styles.css" />
+	  	<link rel="stylesheet" type="text/css" href="./css/external/iThing.css" />
+	  	<link rel="stylesheet" type="text/css" href="./css/styles.css" />
 	  	<!-- Javascript files here -->
 	  	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	  	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
