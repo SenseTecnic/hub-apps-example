@@ -78,7 +78,6 @@ $(document).ready(function() {
 		function clear_map(){
 			g.selectAll(".gully-map-points").data([]).exit().remove();
 			g.selectAll(".boundary").data([]).exit().remove();
-			map.removeLayer(heatmapLayer);
 			$(".tooltip").hide();
 			$("#date-slider").remove();
 		}
