@@ -33,8 +33,8 @@ $queryArray = array(
     'geo'=> Array('$near' => $geoRangeArray)
 );
 
-$cursor = $db->$collection->count($queryArray);
-// $results= json_encode(iterator_to_array($cursor));
+$cursor = $db->$collection->find($queryArray);
+$results= json_encode(iterator_to_array($cursor));
 
 // // Query MongoDB
 // if ($query==""){
@@ -46,5 +46,5 @@ $cursor = $db->$collection->count($queryArray);
 // $queryArray= array("query"=>$query);
 // $resultsArray=array("results"=>iterator_to_array($cursor));
 // $results= json_encode(array_merge($queryArray, $resultsArray));
-echo $cursor;
+echo $results;
 ?>
