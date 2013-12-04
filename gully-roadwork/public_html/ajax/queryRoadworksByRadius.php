@@ -27,14 +27,14 @@ $geojson=array(
 
 $geoRangeArray = array(
     '$geometry' => $geojson,
-    '$maxDistance'=>$radius
+    '$maxDistance'=>(float)$radius
 );
 $queryArray = array(
     'geo'=> Array('$near' => $geoRangeArray)
 );
 
-$cursor = $db->$collection->find($queryArray)->limit(3000);
-$results= json_encode(iterator_to_array($cursor));
+$cursor = $db->$collection->count($queryArray);
+// $results= json_encode(iterator_to_array($cursor));
 
 // // Query MongoDB
 // if ($query==""){
@@ -46,5 +46,5 @@ $results= json_encode(iterator_to_array($cursor));
 // $queryArray= array("query"=>$query);
 // $resultsArray=array("results"=>iterator_to_array($cursor));
 // $results= json_encode(array_merge($queryArray, $resultsArray));
-echo $results;
+echo $cursor;
 ?>
