@@ -101,6 +101,7 @@ $(document).ready(function() {
 
 	  		var collection= "gully";
 	  		var oldQuery;
+	  		preloader_on();
 	  		// localStorage.clear();
 	  		// if (!localStorage.data){
 	  		  $.post( "./ajax/queryGullies.php", {collection: "gully", query: query})
@@ -109,13 +110,27 @@ $(document).ready(function() {
 			    //begin of paste
 			    // localStorage.setItem('data', response);
 			    processGullyData(response, query, oldQuery, collection);
-
+			    preloader_off();
 			  });
 			// }else{
 			// 	// console.log("local storage" +localStorage.data);
 			// 	processGullyData(localStorage.data, query, oldQuery, collection);
 			// }
 	  	}
+
+	  	function preloader_on(){
+	  		//turn on preloader 
+	  		$("#preloader").show();
+			$("#status").fadeIn(); // will first fade out the loading animation
+			$("#preloader").delay(150).fadeIn("slow"); // will fade out the white DIV that covers the website.
+	  	}
+	  	function preloader_off(){
+	  		//turn off preloader
+	  		$("#status").fadeOut(); // will first fade out the loading animation
+			$("#preloader").delay(150).fadeOut("slow"); // will fade out the white DIV that covers the website.
+			$("#preloader").hide();
+	  	}
+
 
 	  	function processGullyData(response, query, oldQuery, collection){
 	  			var json= JSON.parse(response);
