@@ -109,7 +109,17 @@ $(document).ready(function() {
             	var itemArray=new Array();
             	var heatmapArray=new Array();
             	$.each(json["results"], function (i, ob) {
-            		heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["silt"]) / 100.0});
+            		var silt = parseFloat(json["results"][i]["siltlevel"]);
+            		var value =0;
+            		if (silt >=50){
+            			level = silt/10;
+            		}
+            		else{
+            			level=0;
+            		}
+            		heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: value});
+
+            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
             		itemArray.push(json["results"][i]);
 				});
 
@@ -137,17 +147,16 @@ $(document).ready(function() {
 		            .attr("r", function(d) {
 		            	var level;
 		            	if (d.siltlevel!=null){
-		            		level= parseInt(d["siltlevel"].replace("%",""), 10);		            	
+		            		level= parseInt(d["siltlevel"].replace("%",""), 10);	
+		            		return 2*(1+level/25);	            	
+		            	}else{
+		            		return 0;
 		            	}
-		            	// console.log ("level: "+level);
-		               	return 5;
 		        	})
 		        	.on('mouseover',function(d){
 		        		d3.select(this)
                            .classed("mouseovered", true)
                            .classed("gully-stroke", false);
-                        
-		        		
 		        	}).on('mouseout', function(d, i){
                      	d3.select(this)
                            .classed("mouseovered", false)
