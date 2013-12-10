@@ -19,10 +19,10 @@ $dbCollection = $db->$collection;
 
 // Query MongoDB
 if ($query==""){
-    $cursor = $db->$collection->find()->limit(20000); //set limit on results to return
+    $cursor = $db->$collection->find()->limit(14000); //set limit on results to return
 }else{
 	$query_decoded = json_decode($query);
-    $cursor = $db->$collection->find($query_decoded);
+    $cursor = $db->$collection->find($query_decoded)->limit(14000);;
 }
 $queryArray= array("query"=>$query);
 $resultsArray=array("results"=>iterator_to_array($cursor));
