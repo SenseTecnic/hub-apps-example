@@ -19,7 +19,7 @@ $dbCollection = $db->$collection;
 
 // Query MongoDB
 if ($query==""){
-    $cursor = $db->$collection->find()->limit(13000); //set limit on results to return
+    $cursor = $db->$collection->find()->limit(15000); //set limit on results to return
 }else{
 	$query_decoded = json_decode($query);
     $cursor = $db->$collection->find($query_decoded);
