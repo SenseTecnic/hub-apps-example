@@ -102,19 +102,19 @@ $(document).ready(function() {
 	  		var collection= "gully";
 	  		var oldQuery;
 	  		// localStorage.clear();
-	  		if (!localStorage.data){
+	  		// if (!localStorage.data){
 	  		  $.post( "./ajax/queryGullies.php", {collection: "gully", query: query})
 			  .done(function( response ) {
 			  
 			    //begin of paste
-			    localStorage.setItem('data', response);
+			    // localStorage.setItem('data', response);
 			    processGullyData(response, query, oldQuery, collection);
 
 			  });
-			}else{
-				console.log("local storage" +localStorage.data);
-				processGullyData(localStorage.data, query, oldQuery, collection);
-			}
+			// }else{
+			// 	// console.log("local storage" +localStorage.data);
+			// 	processGullyData(localStorage.data, query, oldQuery, collection);
+			// }
 	  	}
 
 	  	function processGullyData(response, query, oldQuery, collection){
