@@ -19,8 +19,8 @@ $(document).ready(function() {
 	var map = new L.Map("map", {
 	    center: [54.56011889582139, -1.023101806640625],
       	zoom: 11,
-      	minZoom: 5,
-      	maxZoom:19,
+      	minZoom: 10,
+      	maxZoom:17,
       	layers: [baseLayer, heatmapLayer]
 	});
 
@@ -426,7 +426,7 @@ $(document).ready(function() {
 					.attr("cy", function(d) {
 					    return project([d["region_lng"], d["region_lat"]])[1];
 					});
-
+			// console.log("map bounds: "+map.getBounds());
 			
 		  
 	  	}
