@@ -4,8 +4,8 @@ $(document).ready(function() {
 	var baseLayer=new L.TileLayer(cloudmadeUrl);
 	var nw,se;
 	var limit =10000;
-	var itemArray=new Array();
-    var heatmapArray=new Array();
+	var itemArray=[];
+    var heatmapArray=[];
     var oldQuery;
 	// Heatmap layer
 	var heatmapLayer = new L.TileLayer.heatMap({
@@ -144,12 +144,11 @@ $(document).ready(function() {
 
             		// if (ob["la"]!==null&& ob["ln"]!==null){
 	            		var silt = parseFloat(json["results"][i]["si"]);
-	            		var value =0;
 	            		if (silt >=50){
-	            			value = silt;
-	            			heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: value});
+	            			heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: silt});
+	            		}else{
+	            			heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: 0});
 	            		}
-	            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
 	            		itemArray.push(json["results"][i]);
 	            		counter++;
             		// }
