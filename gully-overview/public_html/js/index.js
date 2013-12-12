@@ -144,19 +144,22 @@ $(document).ready(function() {
 
 			   	var counter=0;
             	$.each(json["results"], function (i, ob) {
-            		var silt = parseFloat(json["results"][i]["si"]);
-            		var value =0;
-            		if (silt >=50){
-            			level = silt/10;
-            		}
-            		else{
-            			level=0;
-            		}
-            		heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: value});
 
-            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
-            		itemArray.push(json["results"][i]);
-            		counter++;
+            		if (ob["la"]!==null&& ob["ln"]!==null){
+	            		var silt = parseFloat(json["results"][i]["si"]);
+	            		var value =0;
+	            		if (silt >=50){
+	            			level = silt/10;
+	            		}
+	            		else{
+	            			level=0;
+	            		}
+	            		heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: value});
+
+	            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
+	            		itemArray.push(json["results"][i]);
+	            		counter++;
+            		}
 				});
 
 				if (counter ==0){
@@ -167,8 +170,8 @@ $(document).ready(function() {
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
-				// var heatmapData = {max: 5000, data: heatmapArray};
-				// heatmapLayer.setData(heatmapData.data);
+				var heatmapData = {max: 5000, data: heatmapArray};
+				heatmapLayer.setData(heatmapData.data);
 
 				//plot map pins
 				g.selectAll(".gully-map-points")
