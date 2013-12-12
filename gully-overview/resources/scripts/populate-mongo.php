@@ -20,7 +20,8 @@ include "../config.php"; // Config file
 //MongoDB Config Variables 
 $dbhost= $config["mongo"]["dbhost"];
 $dbname = $config["mongo"]["dbname"];
-$collection = $config["mongo"]["collection"];
+// $collection = $config["mongo"]["collection"];
+$collection = "testgully";
 
 
 // Hypercat API Config Variables 
@@ -70,7 +71,7 @@ do{
 			}
 		}
 		// Query Mongo to see if item with sensor ID already exists
-		$query = array("sensorid"=> (int)$sensor_id);
+		$query = array("sid"=> (int)$sensor_id);
 		$cursor = $collection->find($query);
 		
 		if ($cursor->count()==0){
