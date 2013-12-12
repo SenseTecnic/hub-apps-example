@@ -119,7 +119,6 @@ $(document).ready(function() {
 	  	function queryAllGullies(query, offset){
 	  		$.post( "./ajax/queryGullies.php", {collection: "testgully", query: query, limit: limit, offset: offset})
 			  .done(function( response ) {
-			  	console.log("respomnse: "+response)
 			    processGullyData(response, query, collection);
 			});
 	  	}
@@ -168,9 +167,6 @@ $(document).ready(function() {
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
-				console.log("old query: "+oldQuery);
-				console.log("ajax call count: "+counter);
-				console.log("ajax offset count: "+json["offset"]);
 				var heatmapData = {max: 5000, data: heatmapArray};
 				heatmapLayer.setData(heatmapData.data);
 
@@ -244,7 +240,6 @@ $(document).ready(function() {
 
 	  	function plotData(){
 	  		//cross filter the data by silt levels
-	  		console.log("plot data");
 				    var gullyFilter= crossfilter(itemArray);
 				    var dataBySiltLevel = gullyFilter.dimension(function(d) {return d["si"]}); 
 				    
@@ -304,7 +299,6 @@ $(document).ready(function() {
 				                	query = {"$and" : [query, oldQuery]};
 				                }
 	  							var stringQuery = JSON.stringify( query );
-	  							console.log("string q:"+stringQuery);
 	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
@@ -322,7 +316,6 @@ $(document).ready(function() {
 				   		var value={};
 				        value["key"]= states[i];
 				    	value["y"]= count;
-				    	console.log("count: "+count);
 				    	state_values.push(value);
 				    }
 
@@ -376,7 +369,6 @@ $(document).ready(function() {
 
 				                }
 	  							var stringQuery = JSON.stringify( query );
-	  							console.log("string: "+stringQuery);
 	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
@@ -393,7 +385,6 @@ $(document).ready(function() {
 				   		var value={};
 				        value["key"]= types[i];
 				    	value["y"]= count;
-				    	console.log("count: "+count);
 				    	type_values.push(value);
 				    }
 
@@ -444,7 +435,6 @@ $(document).ready(function() {
 				                }
 				                //remap gullies
 	  							var stringQuery = JSON.stringify( query );
-	  							console.log("string q: "+JSON.stringify( query ));
 	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
