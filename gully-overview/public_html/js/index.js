@@ -152,7 +152,7 @@ $(document).ready(function() {
             		else{
             			level=0;
             		}
-            		heatmapArray.push({lat:json["results"][i]["la"] , lon:json["results"][i]["ln"] , value: value});
+            		heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: value});
 
             		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
             		itemArray.push(json["results"][i]);
@@ -167,8 +167,8 @@ $(document).ready(function() {
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
-				var heatmapData = {max: 5000, data: heatmapArray};
-				heatmapLayer.setData(heatmapData.data);
+				// var heatmapData = {max: 5000, data: heatmapArray};
+				// heatmapLayer.setData(heatmapData.data);
 
 				//plot map pins
 				g.selectAll(".gully-map-points")
