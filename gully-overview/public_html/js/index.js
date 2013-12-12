@@ -146,11 +146,8 @@ $(document).ready(function() {
 	            		var silt = parseFloat(json["results"][i]["si"]);
 	            		var value =0;
 	            		if (silt >=50){
-	            			level = silt/10;
+	            			value = silt;
 	            			heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: value});
-	            		}
-	            		else{
-	            			level=0;
 	            		}
 	            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
 	            		itemArray.push(json["results"][i]);
