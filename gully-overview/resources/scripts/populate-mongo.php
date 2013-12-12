@@ -95,7 +95,7 @@ do{
 					$gully = new GullySensor($response, $lastupdate);
 					$gullyArray =$gully->create_db_object();
 					if ($gullyArray["la"]!==null)
-						$collection->update($query, array('$set'=>$gullyArray)));
+						$collection->update($query, array('$set'=>$gullyArray));
 				}
 			}
 		}
