@@ -251,7 +251,7 @@ $(document).ready(function() {
 
 		        		
 		        		//graph silt levels of gullies within specified radius, search mongo for gullies within 500 radius
-		        		$.post( "./ajax/queryRoadworksByRadius.php", {collection: "gully", query: null, lat: lat, lng: lng, radius: radius})
+		        		$.post( "./ajax/queryRoadworksByRadius.php", {collection: "testgully", query: null, lat: lat, lng: lng, radius: radius})
 						.done(function( response ) {
 		        		// makeAPICall('POST', "TrafficExplorer" , "mongoGeoRadiusSearch", {collection: "gully", lat: lat, lng: lng, radius: radius}, function(response){
 		        			console.log(response);
@@ -264,7 +264,7 @@ $(document).ready(function() {
 							});
 
 				        	var siltFilter= crossfilter(flatArray);
-				        	var dataBySiltLevel = siltFilter.dimension(function(d) {console.log ("silt: "+d["siltlevel"]); return d["siltlevel"]}); 
+				        	var dataBySiltLevel = siltFilter.dimension(function(d) {console.log ("silt: "+d["si"]); return d["si"]}); 
 				        	var values=new Array();
 				        	var levels= ["0%", "25%", "50%", "100%"];
 				        	for (var i in levels){
@@ -403,7 +403,7 @@ $(document).ready(function() {
 
 	  		var collection= "gully";
 
-	  		$.post( "./ajax/queryGullies.php", {collection: "gully", query: null})
+	  		$.post( "./ajax/queryGullies.php", {collection: "testgully", query: null})
 			  .done(function( response ) {
 	  			var json= JSON.parse(response);
             	var itemArray=new Array();
@@ -417,15 +417,15 @@ $(document).ready(function() {
 					.append("circle")
 					.attr("class", "gully-dot gully-map-points gully-stroke")
 					.attr("cx", function(d) {
-		                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
+		                    return project([d["ln"], d["la"]])[0];
 		            })
 		            .attr("cy", function(d) {
-		                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];	                
+		                    return project([d["ln"], d["la"]])[1];	                
 		            })
 		            .attr("r", function(d) {
 		            	var level;
-		            	if (d.siltlevel!=null){
-		            		level= parseInt(d["siltlevel"].replace("%",""), 10);		            	
+		            	if (d.si!=null){
+		            		level= parseInt(d["si"].replace("%",""), 10);		            	
 		            	}
 		            	if (level==0)
 		                	r=0;
@@ -440,7 +440,7 @@ $(document).ready(function() {
 		               	return r;
 		        	})
 		        	.on("click", function(d, i){
-		        		console.log ("silt level: "+d["siltlevel"]);
+		        		console.log ("silt level: "+d["si"]);
 		        	});
 
 		        //map redcar roadworks
@@ -466,10 +466,10 @@ $(document).ready(function() {
 		    //redraw the pins due to zoom level
 				g.selectAll(".gully-map-points")
 		    		.attr("cx", function(d) {
-										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
+										return project([d["ln"], d["la"]])[0];
 					                })
 					                .attr("cy", function(d) {
-					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
+					                    return project([d["ln"], d["la"])[1];
 					                });
 				g.selectAll(".redcar_roadwork_points")
 		    		.attr('d', function(d) { 

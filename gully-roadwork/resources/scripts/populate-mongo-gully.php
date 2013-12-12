@@ -20,7 +20,8 @@ include "../config.php"; // Config file
 //MongoDB Config Variables 
 $dbhost= $config["mongo"]["dbhost"];
 $dbname = $config["mongo"]["dbname"];
-$collection = $config["mongo"]["collection"];
+// $collection = $config["mongo"]["collection"];
+$collection = "testgully";
 
 
 // Hypercat API Config Variables 
@@ -70,7 +71,7 @@ do{
 			}
 		}
 		// Query Mongo to see if item with sensor ID already exists
-		$query = array("sensorid"=> (int)$sensor_id);
+		$query = array("sid"=> (int)$sensor_id);
 		$cursor = $collection->find($query);
 		
 		if ($cursor->count()==0){
@@ -80,7 +81,9 @@ do{
 			var_dump($data_href);
 			var_dump($response);
 			$gully = new GullySensor($response, $lastupdate);
-			$collection->insert($gully->create_db_object());
+			$gullyArray =$gully->create_db_object();
+			if ($gullyArray["la"]!==null)
+				$collection->insert($gullyArray);
 		}else{
 			foreach ($cursor as $doc) {
 				if ($doc["lastupdate"]==$lastupdate)
@@ -90,7 +93,9 @@ do{
 					// Update existing item in MongoDB
 					$response=curl_with_authentication($data_href, $api_key);
 					$gully = new GullySensor($response, $lastupdate);
-					$collection->update($query, array('$set'=>$gully->create_db_object()));
+					$gullyArray =$gully->create_db_object();
+					if ($gullyArray["la"]!==null)
+						$collection->update($query, array('$set'=>$gullyArray));
 				}
 			}
 		}
