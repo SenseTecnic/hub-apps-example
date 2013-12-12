@@ -142,7 +142,7 @@ $(document).ready(function() {
 			   	var counter=0;
             	$.each(json["results"], function (i, ob) {
 
-            		if (ob["la"]!==null&& ob["ln"]!==null){
+            		// if (ob["la"]!==null&& ob["ln"]!==null){
 	            		var silt = parseFloat(json["results"][i]["si"]);
 	            		var value =0;
 	            		if (silt >=50){
@@ -156,7 +156,7 @@ $(document).ready(function() {
 	            		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
 	            		itemArray.push(json["results"][i]);
 	            		counter++;
-            		}
+            		// }
 				});
 
 				if (counter ==0){
