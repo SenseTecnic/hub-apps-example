@@ -469,7 +469,7 @@ $(document).ready(function() {
 										return project([d["ln"], d["la"]])[0];
 					                })
 					                .attr("cy", function(d) {
-					                    return project([d["ln"], d["la"])[1];
+					                    return project([d["ln"], d["la"]])[1];
 					                });
 				g.selectAll(".redcar_roadwork_points")
 		    		.attr('d', function(d) { 
