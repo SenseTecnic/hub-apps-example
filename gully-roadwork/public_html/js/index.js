@@ -85,7 +85,6 @@ $(document).ready(function() {
 		function create_timeline(){
 			//create timeline scroll
 			$("<div id= 'date-slider'></div>").insertAfter("#map");
-			console.log("create timeline");
 			var months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 			var today = new Date();
 		  	var before= new Date(today.getTime() - 60*(24 * 60 * 60 * 1000));
@@ -122,8 +121,6 @@ $(document).ready(function() {
 
 		function slider_onChange(data){
 		  	$(".tooltip").css("display", "none");
-	  		console.log("Values just changed. min: " + data.min + " max: " + data.max);
-	  		console.log("redcar_query: " + redcar_query);
 			plot_redcar_roadworks(redcar_query, data.min, data.max);	  			
 		}
 
@@ -147,16 +144,12 @@ $(document).ready(function() {
             	var itemArray=new Array();
             	minDate=new Date(minDate);
             	maxDate=new Date(maxDate);
-            	console.log("min date="+minDate);
-            	console.log("max date="+maxDate);
             	$.each(json["results"], function (i, ob) {
             		var timestamp = ob["timestamp"];
             		if (ob["jobstatus"]==query ||query ==null){
             			recordDate=new Date(timestamp);
-            			console.log("record date="+recordDate);
             			if (recordDate<= maxDate && recordDate>= minDate){
             				itemArray.push(ob);
-            				console.log("within date range!");
             			}
             		}
 				});
@@ -253,8 +246,6 @@ $(document).ready(function() {
 		        		//graph silt levels of gullies within specified radius, search mongo for gullies within 500 radius
 		        		$.post( "./ajax/queryRoadworksByRadius.php", {collection: "testgully", query: null, lat: lat, lng: lng, radius: radius})
 						.done(function( response ) {
-		        		// makeAPICall('POST', "TrafficExplorer" , "mongoGeoRadiusSearch", {collection: "gully", lat: lat, lng: lng, radius: radius}, function(response){
-		        			console.log(response);
 		        			//cross filter the data
 		        			//filter 
 		        			var flatArray= new Array();
@@ -264,7 +255,7 @@ $(document).ready(function() {
 							});
 
 				        	var siltFilter= crossfilter(flatArray);
-				        	var dataBySiltLevel = siltFilter.dimension(function(d) {console.log ("silt: "+d["si"]); return d["si"]}); 
+				        	var dataBySiltLevel = siltFilter.dimension(function(d) {return d["si"]}); 
 				        	var values=new Array();
 				        	var levels= ["0%", "25%", "50%", "100%"];
 				        	for (var i in levels){
@@ -440,7 +431,6 @@ $(document).ready(function() {
 		               	return r;
 		        	})
 		        	.on("click", function(d, i){
-		        		console.log ("silt level: "+d["si"]);
 		        	});
 
 		        //map redcar roadworks
