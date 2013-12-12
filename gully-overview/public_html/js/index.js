@@ -2,6 +2,11 @@ $(document).ready(function() {
 	var redcar_query=null;
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
 	var baseLayer=new L.TileLayer(cloudmadeUrl);
+	var nw,se;
+	var limit =5000;
+	var itemArray=new Array();
+    var heatmapArray=new Array();
+    var oldQuery;
 	// Heatmap layer
 	var heatmapLayer = new L.TileLayer.heatMap({
                     radius: { value: 90, absolute: true },
@@ -23,6 +28,7 @@ $(document).ready(function() {
       	maxZoom:17,
       	layers: [baseLayer, heatmapLayer]
 	});
+	map.setView(new L.LatLng(54.56011889582139, -1.023101806640625), 11);
 
     var overlayMaps = {
                     'Heatmap': heatmapLayer
@@ -55,8 +61,6 @@ $(document).ready(function() {
 	  	var div= d3.select(".tooltip").style("opacity", 0);  
 
 	  	initialize();
-	  	// create_timeline();
-	  	// $("#date-slider").hide();
 	  	map.on("viewreset", reset);
 	  	reset();
 	  	
@@ -72,6 +76,7 @@ $(document).ready(function() {
 	  		$("#gully_overview_desc").show();
 	  		$("#dropdown_select").val("gully_overview");
 	  		get_gully_overview();
+	  		
 	  	}
 		
 		function clear_graph(){
@@ -89,7 +94,8 @@ $(document).ready(function() {
 
 
 		function get_gully_overview(){
-			map.setView(new L.LatLng(54.56011889582139, -1.023101806640625), 11);
+			// var query = {"geo": {"$geoWithin":{"$geometry":{type:"Polygon", coordinates:[[nw["lng"],nw["lat"]],[se["lng"],se["lat"]]]}}}};
+			offset=0;
 			map_gullies(null);
 		}
 
@@ -100,22 +106,22 @@ $(document).ready(function() {
 			$("#bottom-box").append('<div id="bottom-box-right"></div>');
 
 	  		var collection= "gully";
-	  		var oldQuery;
+	  		// var oldQuery;
 	  		preloader_on();
-	  		// localStorage.clear();
-	  		// if (!localStorage.data){
-	  		  $.post( "./ajax/queryGullies.php", {collection: "gully", query: query})
+	  		itemArray= new Array();
+	  		heatmapArray = new Array();
+	  		var offset=0;
+	  		queryAllGullies(query, offset);
+	  		
+
+	  	}
+
+	  	function queryAllGullies(query, offset){
+	  		$.post( "./ajax/queryGullies.php", {collection: "testgully", query: query, limit: limit, offset: offset})
 			  .done(function( response ) {
-			  
-			    //begin of paste
-			    // localStorage.setItem('data', response);
-			    processGullyData(response, query, oldQuery, collection);
-			    preloader_off();
-			  });
-			// }else{
-			// 	// console.log("local storage" +localStorage.data);
-			// 	processGullyData(localStorage.data, query, oldQuery, collection);
-			// }
+			  	console.log("respomnse: "+response)
+			    processGullyData(response, query, collection);
+			});
 	  	}
 
 	  	function preloader_on(){
@@ -132,12 +138,14 @@ $(document).ready(function() {
 	  	}
 
 
-	  	function processGullyData(response, query, oldQuery, collection){
+	  	function processGullyData(response, query, collection){
 	  			var json= JSON.parse(response);
-            	var itemArray=new Array();
-            	var heatmapArray=new Array();
+            	// var itemArray=new Array();
+            	// var heatmapArray=new Array();
+
+			   	var counter=0;
             	$.each(json["results"], function (i, ob) {
-            		var silt = parseFloat(json["results"][i]["siltlevel"]);
+            		var silt = parseFloat(json["results"][i]["si"]);
             		var value =0;
             		if (silt >=50){
             			level = silt/10;
@@ -145,18 +153,24 @@ $(document).ready(function() {
             		else{
             			level=0;
             		}
-            		heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: value});
+            		heatmapArray.push({lat:json["results"][i]["la"] , lon:json["results"][i]["ln"] , value: value});
 
             		// heatmapArray.push({lat:json["results"][i]["geo"]["coordinates"][1] , lon:json["results"][i]["geo"]["coordinates"][0] , value: parseFloat(json["results"][i]["siltlevel"]) / 100.0});
             		itemArray.push(json["results"][i]);
+            		counter++;
 				});
+
+				if (counter ==0){
+			    	preloader_off();
+			    	plotData();
+			    }else{
+			    // offset+=limit;
+			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
 				console.log("old query: "+oldQuery);
-				var testData={
-		            max: 46,
-		            data: [{lat: 33.5363, lon:-117.044, value: 1},{lat: 33.5608, lon:-117.24, value: 1}]
-		        };
+				console.log("ajax call count: "+counter);
+				console.log("ajax offset count: "+json["offset"]);
 				var heatmapData = {max: 5000, data: heatmapArray};
 				heatmapLayer.setData(heatmapData.data);
 
@@ -167,15 +181,15 @@ $(document).ready(function() {
 					.append("circle")
 					.attr("class", "gully-dot gully-map-points gully-stroke")
 					.attr("cx", function(d) {
-		                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
+		                    return project([d["ln"], d["la"]])[0];
 		            })
 		            .attr("cy", function(d) {
-		                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];	                
+		                    return project([d["ln"], d["la"]])[1];	                
 		            })
 		            .attr("r", function(d) {
 		            	var level;
-		            	if (d.siltlevel!=null){
-		            		level= parseInt(d["siltlevel"].replace("%",""), 10);	
+		            	if (d.si!=null){
+		            		level= parseInt(d["si"].replace("%",""), 10);	
 		            		return 2*(1+level/25);	            	
 		            	}else{
 		            		return 0;
@@ -189,12 +203,50 @@ $(document).ready(function() {
                      	d3.select(this)
                            .classed("mouseovered", false)
                            .classed("gully-stroke", true);
+                	}).on('click', function(d, i){
+                		var pageX=d3.event.pageX;
+                		var pageY= d3.event.pageY;
+                		var query = {"sid": d.sensorid};
+                		var stringQuery= JSON.stringify(query);
+                		$.post( "./ajax/queryGullyDetails.php", {collection: "testgully", query: stringQuery})
+						  .done(function( response ) {
+						  	response=JSON.parse(response);
+						  	var height=parseInt($(".tooltip").css("height"),10);
+	                        var tooltip= d3.select(".tooltip");
+	                        tooltip.transition()       
+	                          .duration(200)
+	                          .style("display","block")     
+	                          .style("opacity", .9)
+	                          .style("left", (pageX-100-8) + "px")    
+	                          .style("top", (pageY+20) + "px");
+	                          var content;
+	                        for(key in response){
+	                        	content = response[key];
+	                        }
+	                        //add tooltip content
+	                        $("#tooltip_content").html("");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully ID: <span class='bold'>"+content.gid+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Sensor ID: <span class='bold'>"+content.sid+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Silt Level: <span class='bold'>"+content.si+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Type: <span class='bold'>"+content.ty+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully State: <span class='bold'>"+content.st+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Accessible?: <span class='bold'>"+content.access+"</span></div>");
+	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Timestamp: <span class='bold'>"+content.timestamp+"</span></div>");
+						});
+
+                     	
                 	});
+		        	
+			    //end of paste
+			    }
 
+	  	}
 
-		        	//cross filter the data by silt levels
+	  	function plotData(){
+	  		//cross filter the data by silt levels
+	  		console.log("plot data");
 				    var gullyFilter= crossfilter(itemArray);
-				    var dataBySiltLevel = gullyFilter.dimension(function(d) {return d["siltlevel"]}); 
+				    var dataBySiltLevel = gullyFilter.dimension(function(d) {return d["si"]}); 
 				    
 				    var values=new Array();
 				    var levels= ["0%", "25%", "50%", "75%","100%"];
@@ -206,14 +258,12 @@ $(document).ready(function() {
 				    	value["value"]= count;
 				    	values.push(value);
 				    }
-
 				 	siltLevelBarData = [ 
 						{
 						    key: "Silt Level",
 						    values: values
 						}
 					];
-
 					//graph a bar chart
 					if ($("#gully_silt_chart").length==0){
 						$("#bottom-box-left").append("<svg id="+"'gully_silt_title'"+"' class='chart_title'></svg>");
@@ -248,13 +298,14 @@ $(document).ready(function() {
 				                //clear all 
 				               	g.selectAll(".gully-map-points").data([]).exit().remove();
 				                //remap gullies
-				                var query = {"siltlevel": e.label};
+				                var query = {"si": e.label};
 				                if (oldQuery!=""&&oldQuery!=query){
 				                	oldQuery=JSON.parse(oldQuery);
 				                	query = {"$and" : [query, oldQuery]};
 				                }
 	  							var stringQuery = JSON.stringify( query );
 	  							console.log("string q:"+stringQuery);
+	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
 				    });
@@ -262,7 +313,7 @@ $(document).ready(function() {
 					//////state chart
 					var stateFilter= crossfilter(itemArray);
 					var state_values=new Array();
-					var dataByState = stateFilter.dimension(function(d) {return d["gullystate"]}); 
+					var dataByState = stateFilter.dimension(function(d) {return d["st"]}); 
 
 				    var states= ["Clean and Running", "Obstructed", "Blocked And Cleaned", "Cleaned and Not Running", "No Info"];
 				    for (var i in states){
@@ -318,7 +369,7 @@ $(document).ready(function() {
 				                //clear all 
 				               	g.selectAll(".gully-map-points").data([]).exit().remove();
 				                //remap gullies
-				                var query = {"gullystate": e.data.key};
+				                var query = {"st": e.data.key};
 				                if (oldQuery!=""&&oldQuery!=query){
 				                	oldQuery=JSON.parse(oldQuery);
 				                	query = {"$and" : [query, oldQuery]};
@@ -326,6 +377,7 @@ $(document).ready(function() {
 				                }
 	  							var stringQuery = JSON.stringify( query );
 	  							console.log("string: "+stringQuery);
+	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
 				    });
@@ -333,7 +385,7 @@ $(document).ready(function() {
 					//////type chart
 					var typeFilter= crossfilter(itemArray);
 					var type_values=new Array();
-					var dataByType = typeFilter.dimension(function(d) {return d["gullytype"]}); 
+					var dataByType = typeFilter.dimension(function(d) {return d["ty"]}); 
 				    var types= ["Top Entry", "Side Entry", "Box", "Rod and Eye"];
 				    for (var i in types){
 				        dataByType.filter(null).filter(types[i]);
@@ -385,7 +437,7 @@ $(document).ready(function() {
 				            function(e){
 				                //clear all 
 				                g.selectAll(".gully-map-points").data([]).exit().remove();
-				                 var query = {"gullytype": e.data.key};
+				                 var query = {"ty": e.data.key};
 				                if (oldQuery!=""&&oldQuery!=query){
 				                	oldQuery=JSON.parse(oldQuery);
 				                	query = {"$and" : [query, oldQuery]};
@@ -393,16 +445,17 @@ $(document).ready(function() {
 				                //remap gullies
 	  							var stringQuery = JSON.stringify( query );
 	  							console.log("string q: "+JSON.stringify( query ));
+	  							offset=0;
 	  							map_gullies(stringQuery);
 				        });
 				    });
-			    //end of paste
 	  	}
 
 	  	//D3 functions
 
 	  	// Reposition the SVG to cover the features.
 	  	function reset() {
+	  		oldQuery=null;
 	  	 	var bottomLeft = project(bounds[0]),
 	        	topRight = project(bounds[1]);
 		    svg .attr("width", topRight[0] - bottomLeft[0])
@@ -414,10 +467,10 @@ $(document).ready(function() {
 		    //redraw the pins due to zoom level
 				g.selectAll(".gully-map-points")
 		    		.attr("cx", function(d) {
-										return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[0];
+										return project([d["ln"], d["la"]])[0];
 					                })
 					                .attr("cy", function(d) {
-					                    return project([d["geo"]["coordinates"][0], d["geo"]["coordinates"][1]])[1];
+					                    return project([d["ln"], d["la"]])[1];
 					                });
 				g.selectAll(".boundary")
 		    		.attr("cx", function(d) {
@@ -426,8 +479,9 @@ $(document).ready(function() {
 					.attr("cy", function(d) {
 					    return project([d["region_lng"], d["region_lat"]])[1];
 					});
-			// console.log("map bounds: "+map.getBounds());
-			
+			nw = map.getBounds().getNorthWest()
+			se=map.getBounds().getSouthEast();
+			// get_gully_overview();
 		  
 	  	}
 	  	// Use Leaflet to implement a D3 geographic projection.
