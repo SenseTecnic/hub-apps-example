@@ -8,7 +8,7 @@ $config = array(
 	"mongo" => array(
 		"dbname" => "demo",
 		"dbhost" => "localhost",
-		"collection" => "gully"
+		"collection" => "testgully"
 	),
 	"hypercat-api" => array(
 		"api_key" => "f9c0e0b7-8c4a-4f32-bf9c-7a7fac849659",

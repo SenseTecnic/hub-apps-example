@@ -35,16 +35,5 @@ $queryArray = array(
 
 $cursor = $db->$collection->find($queryArray);
 $results= json_encode(iterator_to_array($cursor));
-
-// // Query MongoDB
-// if ($query==""){
-//     $cursor = $db->$collection->find()->limit(10000); //set limit on results to return
-// }else{
-// 	$query_decoded = json_decode($query);
-//     $cursor = $db->$collection->find($query_decoded);
-// }
-// $queryArray= array("query"=>$query);
-// $resultsArray=array("results"=>iterator_to_array($cursor));
-// $results= json_encode(array_merge($queryArray, $resultsArray));
 echo $results;
 ?>
