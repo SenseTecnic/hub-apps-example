@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
 	var baseLayer=new L.TileLayer(cloudmadeUrl);
 	var nw,se;
-	var limit =5000;
+	var limit =10000;
 	var itemArray=new Array();
     var heatmapArray=new Array();
     var oldQuery;
@@ -94,7 +94,6 @@ $(document).ready(function() {
 
 
 		function get_gully_overview(){
-			// var query = {"geo": {"$geoWithin":{"$geometry":{type:"Polygon", coordinates:[[nw["lng"],nw["lat"]],[se["lng"],se["lat"]]]}}}};
 			offset=0;
 			map_gullies(null);
 		}
@@ -108,8 +107,8 @@ $(document).ready(function() {
 	  		var collection= "gully";
 	  		// var oldQuery;
 	  		preloader_on();
-	  		itemArray= new Array();
-	  		heatmapArray = new Array();
+	  		itemArray= [];
+	  		heatmapArray = [];
 	  		var offset=0;
 	  		queryAllGullies(query, offset);
 	  		
@@ -139,8 +138,6 @@ $(document).ready(function() {
 
 	  	function processGullyData(response, query, collection){
 	  			var json= JSON.parse(response);
-            	// var itemArray=new Array();
-            	// var heatmapArray=new Array();
 
 			   	var counter=0;
             	$.each(json["results"], function (i, ob) {
@@ -170,7 +167,7 @@ $(document).ready(function() {
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
-				var heatmapData = {max: 5000, data: heatmapArray};
+				var heatmapData = {max: 10000, data: heatmapArray};
 				heatmapLayer.setData(heatmapData.data);
 
 				//plot map pins
