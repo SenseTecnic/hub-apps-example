@@ -102,8 +102,10 @@ do{
 	}
 	$offset+=$limit; // Increment paging offset
 	// Finish loop when reaching end of all sensor results
-	if (count($results['items'])==0)
+	if (count($results['items'])==0){
 		$finish=true;
+		$collection->ensureIndex(array("geo" => "2dsphere"));
+	}
 }while(!$finish);
 
 function curl_with_authentication ($url, $key){
