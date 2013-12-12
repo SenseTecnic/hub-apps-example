@@ -21,9 +21,10 @@ body {
     right:0;
     bottom:0;
     background-color:black; /* change if the mask should have another color then white */
-    opacity: 0.6;
+    opacity: 0.2;
     z-index:999999999999999; /* makes sure it stays on top */
 }
+
 
 #status {
     width:200px;
@@ -35,6 +36,46 @@ body {
     background-repeat:no-repeat;
     background-position:center;
     margin:-100px 0 0 -100px; /* is width and height divided by two */
+}
+
+/****tool tip ******/
+.tooltip {
+	position: absolute;           
+  	text-align: center;           
+  	width: 200px;                  
+  	height: auto;                 
+  	font: 12px sans-serif;
+  	z-index: 100;
+	background: #eee;
+	border: 1px solid #ccc;
+	padding: 10px;
+	border-radius: 8px;
+	box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
+	display: none;
+}
+
+/* arrows - :before and :after */
+.tooltip:before {
+	position: absolute;
+	display: inline-block;
+	border-left: 11px solid transparent;
+	border-bottom: 15px solid #eee;
+	border-right: 11px solid transparent;
+	border-top-color: rgba(0, 0, 0, 0.2);
+	left: 97px;
+	top: -15px;
+	content: '';
+}
+
+.tooltip:after {
+	position: absolute;
+	display: inline-block;
+	border-left: 11px solid transparent;
+	border-bottom: 13px solid #eee;
+	border-right: 11px solid transparent;
+	left: 95px;
+	top: -12px;
+	content: '';
 }
 
 /*** Page Layout ***/
