@@ -396,7 +396,6 @@ $(document).ready(function() {
 
 	  		$.post( "./ajax/queryGullies.php", {collection: "testgully", query: null})
 			  .done(function( response ) {
-			  	console.log("reponse:"+response);
 	  			var json= JSON.parse(response);
             	var itemArray=new Array();
             	$.each(json["results"], function (i, ob) {
