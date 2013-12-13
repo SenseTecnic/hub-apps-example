@@ -232,12 +232,12 @@ $(document).ready(function() {
 				    var dataBySiltLevel = gullyFilter.dimension(function(d) {return d["si"]}); 
 				    
 				    var values=new Array();
-				    var levels= ["0%", "25%", "50%", "75%","100%"];
+				    var levels= ["0", "25", "50", "75","100"];
 				    for (var i in levels){
 				        dataBySiltLevel.filter(levels[i]);
 				        var count = gullyFilter.groupAll().reduceCount().value();
 				   		var value={};
-				        value["label"]= levels[i];
+				        value["label"]= levels[i]+"%";
 				    	value["value"]= count;
 				    	values.push(value);
 				    }
