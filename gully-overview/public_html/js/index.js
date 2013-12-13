@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
 	var baseLayer=new L.TileLayer(cloudmadeUrl);
 	var nw,se;
-	var limit =10000;
+	var limit =40000;
 	var itemArray=[];
     var heatmapArray=[];
     var oldQuery;
@@ -141,9 +141,7 @@ $(document).ready(function() {
 
 			   	var counter=0;
             	$.each(json["results"], function (i, ob) {
-
-            		// if (ob["la"]!==null&& ob["ln"]!==null){
-	            		var silt = parseFloat(json["results"][i]["si"]);
+	            		var silt = parseFloat(ob["si"]);
 	            		if (silt >=50){
 	            			heatmapArray.push({lat:ob["la"] , lon:ob["ln"] , value: silt});
 	            		}else{
@@ -151,14 +149,12 @@ $(document).ready(function() {
 	            		}
 	            		itemArray.push(json["results"][i]);
 	            		counter++;
-            		// }
 				});
 
 				if (counter ==0){
 			    	preloader_off();
 			    	plotData();
 			    }else{
-			    // offset+=limit;
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
@@ -178,13 +174,13 @@ $(document).ready(function() {
 		                    return project([d["ln"], d["la"]])[1];	                
 		            })
 		            .attr("r", function(d) {
-		            	var level;
-		            	if (d.si!=null){
-		            		level= parseInt(d["si"].replace("%",""), 10);	
+		            	// var level;
+		            	// if (d.si!=null){
+		            		var level= parseInt(d["si"].replace("%",""), 10);	
 		            		return 2*(1+level/25);	            	
-		            	}else{
-		            		return 0;
-		            	}
+		            	// }else{
+		            	// 	return 0;
+		            	// }
 		        	})
 		        	.on('mouseover',function(d){
 		        		d3.select(this)
@@ -224,8 +220,6 @@ $(document).ready(function() {
 	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Accessible?: <span class='bold'>"+content.access+"</span></div>");
 	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Timestamp: <span class='bold'>"+content.timestamp+"</span></div>");
 						});
-
-                     	
                 	});
 		        	
 			    //end of paste
@@ -465,9 +459,7 @@ $(document).ready(function() {
 					    return project([d["region_lng"], d["region_lat"]])[1];
 					});
 			nw = map.getBounds().getNorthWest()
-			se=map.getBounds().getSouthEast();
-			// get_gully_overview();
-		  
+			se=map.getBounds().getSouthEast();		  
 	  	}
 	  	// Use Leaflet to implement a D3 geographic projection.
 		function project(x) {
