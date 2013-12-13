@@ -3,7 +3,7 @@ $(document).ready(function() {
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
 	var baseLayer=new L.TileLayer(cloudmadeUrl);
 	var nw,se;
-	var limit =40000;
+	var limit =4000;
 	var itemArray=[];
     var heatmapArray=[];
     var oldQuery;
@@ -66,6 +66,7 @@ $(document).ready(function() {
 	  	
 	  	$(".reset").click(function(){
 	  		clear_map();
+	  		oldQuery=null;
 	  		$(".tooltip").hide();
 	  		map.addLayer(heatmapLayer);
 	  		get_gully_overview();
@@ -153,9 +154,9 @@ $(document).ready(function() {
 
 				if (counter ==0){
 			    	preloader_off();
-			    	var heatmapData = {max: 10000, data: heatmapArray};
+			    	var heatmapData = {max: 100000, data: heatmapArray};
 					heatmapLayer.setData(heatmapData.data);
-			    	plotData();
+			    	// plotData();
 			    }else{
 			    queryAllGullies(query, json["newOffset"]);
 
@@ -220,7 +221,7 @@ $(document).ready(function() {
 	                        $("#tooltip_content").append("<div style='text-align: left;'>Gully Timestamp: <span class='bold'>"+content.timestamp+"</span></div>");
 						});
                 	});
-		        	
+		        	plotData();
 			    //end of paste
 			    }
 
@@ -433,7 +434,7 @@ $(document).ready(function() {
 
 	  	// Reposition the SVG to cover the features.
 	  	function reset() {
-	  		oldQuery=null;
+	  		
 	  	 	var bottomLeft = project(bounds[0]),
 	        	topRight = project(bounds[1]);
 		    svg .attr("width", topRight[0] - bottomLeft[0])
