@@ -257,12 +257,12 @@ $(document).ready(function() {
 				        	var siltFilter= crossfilter(flatArray);
 				        	var dataBySiltLevel = siltFilter.dimension(function(d) {return d["si"]}); 
 				        	var values=new Array();
-				        	var levels= ["0%", "25%", "50%", "100%"];
+				        	var levels= ["0", "25", "50", "100"];
 				        	for (var i in levels){
 				        		dataBySiltLevel.filter(levels[i]);
 				        		var count = siltFilter.groupAll().reduceCount().value();
 				        		var value={};
-				        		value["label"]= levels[i];
+				        		value["label"]= levels[i]+"%";
 				        		value["value"]= count;
 				        		values.push(value);
 				        	}
