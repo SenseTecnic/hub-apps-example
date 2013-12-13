@@ -281,7 +281,7 @@ $(document).ready(function() {
 				                //clear all 
 				               	g.selectAll(".gully-map-points").data([]).exit().remove();
 				                //remap gullies
-				                var query = {"si": e.label.replace("%","");};
+				                var query = {"si": e.label.replace("%","")};
 				                if (oldQuery!=""&&oldQuery!=query){
 				                	oldQuery=JSON.parse(oldQuery);
 				                	query = {"$and" : [query, oldQuery]};
