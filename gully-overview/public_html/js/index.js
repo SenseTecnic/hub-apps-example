@@ -153,14 +153,13 @@ $(document).ready(function() {
 
 				if (counter ==0){
 			    	preloader_off();
+			    	var heatmapData = {max: 10000, data: heatmapArray};
+					heatmapLayer.setData(heatmapData.data);
 			    	plotData();
 			    }else{
 			    queryAllGullies(query, json["newOffset"]);
 
 				oldQuery=json["query"];
-				var heatmapData = {max: 10000, data: heatmapArray};
-				heatmapLayer.setData(heatmapData.data);
-
 				//plot map pins
 				g.selectAll(".gully-map-points")
 					.data(itemArray)
@@ -176,7 +175,7 @@ $(document).ready(function() {
 		            .attr("r", function(d) {
 		            	// var level;
 		            	// if (d.si!=null){
-		            		var level= parseInt(d["si"].replace("%",""), 10);	
+		            		var level= parseInt(d["si"], 10);	
 		            		return 2*(1+level/25);	            	
 		            	// }else{
 		            	// 	return 0;
