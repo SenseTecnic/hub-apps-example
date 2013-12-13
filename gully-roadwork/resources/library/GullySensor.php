@@ -28,7 +28,7 @@ class GullySensor {
       foreach($decoded_object["data"][0] as $key=>$value){
         $key = strtolower($key);
       if(strpos($key, "silt")!==false){
-        $this->si= $value;
+        $this->si= str_replace("%", "", $value)
       }
       if(strpos($key, "state")!==false){//state
         if (strtolower($value) =="clean and running")

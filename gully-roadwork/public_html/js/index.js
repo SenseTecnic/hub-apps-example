@@ -416,7 +416,7 @@ $(document).ready(function() {
 		            .attr("r", function(d) {
 		            	var level;
 		            	if (d.si!=null){
-		            		level= parseInt(d["si"].replace("%",""), 10);		            	
+		            		level= parseInt(d["si"], 10);		            	
 		            	}
 		            	if (level==0)
 		                	r=0;
