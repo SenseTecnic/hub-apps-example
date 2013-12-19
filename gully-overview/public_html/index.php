@@ -47,7 +47,10 @@
 					<a href="#" class="reset">RESET</a>
 				</div>
 				<div id="top-right-box"></div>
-				<div id="bottom-box"></div>
+				<div id="bottom-box">
+					<div id="bottom-box-left"></div>
+					<div id="bottom-box-right"></div>
+				</div>
 			</div>
 		</div>
 	</body>

@@ -20,8 +20,7 @@ include "../config.php"; // Config file
 //MongoDB Config Variables 
 $dbhost= $config["mongo"]["dbhost"];
 $dbname = $config["mongo"]["dbname"];
-// $collection = $config["mongo"]["collection"];
-$collection = "testgully";
+$collection = $config["mongo"]["collection"];
 
 
 // Hypercat API Config Variables 
