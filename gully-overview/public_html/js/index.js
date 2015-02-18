@@ -1,7 +1,8 @@
 $(document).ready(function() {
 	var redcar_query=null;
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
-	var baseLayer=new L.TileLayer(cloudmadeUrl);
+	//var baseLayer=new L.TileLayer(cloudmadeUrl);
+	var baseLayer = MQ.mapLayer();
 	var nw,se;
 	var limit =4000;
 	var itemArray=[];
@@ -193,7 +194,8 @@ $(document).ready(function() {
                 	}).on('click', function(d, i){
                 		var pageX=d3.event.pageX;
                 		var pageY= d3.event.pageY;
-                		var query = {"sid": d.sensorid};
+                		var query = {"sid": d.sid};
+				console.log("sid"+d.sensorid);
                 		var stringQuery= JSON.stringify(query);
                 		$.post( "./ajax/queryGullyDetails.php", {collection: "testgully", query: stringQuery})
 						  .done(function( response ) {

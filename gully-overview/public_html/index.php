@@ -13,7 +13,8 @@
 	  	<script type="text/javascript" src="./js/external/nv.d3.min.js"></script>
 	  	<script type="text/javascript" src="./js/external/crossfilter.min.js"></script>
 	  	<script type="text/javascript" src="./js/external/heatmap-leaflet.js"></script>
-	  	<script type="text/javascript" src="./js/external/heatmap.js"></script>
+	  	<script src="http://open.mapquestapi.com/sdk/leaflet/v1.0/mq-map.js?key=Fmjtd%7Cluur2g61nl%2Crw%3Do5-9az2h0"></script>
+		<script type="text/javascript" src="./js/external/heatmap.js"></script>
 	  	<script type="text/javascript" src="./js/external/QuadTree.js"></script>	
 	  	<script type="text/javascript" src="./js/index.js"></script>
 	</head>
@@ -47,7 +48,10 @@
 					<a href="#" class="reset">RESET</a>
 				</div>
 				<div id="top-right-box"></div>
-				<div id="bottom-box"></div>
+				<div id="bottom-box">
+					<div id="bottom-box-left"></div>
+					<div id="bottom-box-right"></div>
+				</div>
 			</div>
 		</div>
 	</body>

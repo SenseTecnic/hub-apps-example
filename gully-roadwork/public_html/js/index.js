@@ -12,8 +12,8 @@ $(document).ready(function() {
     });
 
 	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
-	var baseLayer=new L.TileLayer(cloudmadeUrl);
-
+	//var baseLayer=new L.TileLayer(cloudmadeUrl);
+	var baseLayer = MQ.mapLayer();
 	//map creation on default (Gully Overview)
 	var map = new L.Map("map", {
 	    center: [54.56011889582139, -1.023101806640625],
@@ -89,7 +89,7 @@ $(document).ready(function() {
 			var today = new Date();
 		  	var before= new Date(today.getTime() - 60*(24 * 60 * 60 * 1000));
 
-		  	var lower_bound= new Date(today.getTime() - 360*(24 * 60 * 60 * 1000));
+		  	var lower_bound= new Date(today.getTime() - 720*(24 * 60 * 60 * 1000));
 		  	var upper_bound= new Date(today.getTime() + 180*(24 * 60 * 60 * 1000));
 		  	$("#date-slider").dateRangeSlider({
 		  		

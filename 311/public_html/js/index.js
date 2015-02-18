@@ -13,8 +13,11 @@ $(document).ready(function() {
 
 	// Map creation
 	var bounds = [[-123.287888, 49.117928],[ -122.717972,49.330492]]; // bottom left, top right bounds of the vancouver city map
-	var cloudmadeUrl= "http://{s}.tile.cloudmade.com/d33d78dd8edd4f61a812a0d56b062f56/2400/256/{z}/{x}/{y}.png";
-	var baseLayer=new L.TileLayer(cloudmadeUrl);
+	var cloudmadeUrl= "http://{s}.tiles.mapbox.com/v4/tedh.l6cl5pco/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoidGVkaCIsImEiOiJWYVdlRWdzIn0.XUX26iMTofEnu7jNGIDWeQ";
+	var baseLayer=new L.TileLayer(cloudmadeUrl, {
+				attribution: "Map data &copy;",
+				maxZoom: 180
+			});
 	var regionLayer;
 	var heatmapLayer = new L.TileLayer.heatMap({
                     radius: { value: 90, absolute: true },

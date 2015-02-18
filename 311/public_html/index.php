@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>Vanocouver 311 Visualisation</title>
+		<title>Vancouver 311 Visualisation</title>
 	  	<!-- CSS files here -->
 	  	<link rel="stylesheet" type="text/css" href="./css/external/nv.d3.css" />
 	  	<!-- <link rel="stylesheet" type="text/css" href="/css/external/jquery.tree.min.css" /> -->

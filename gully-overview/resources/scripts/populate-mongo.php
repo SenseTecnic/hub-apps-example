@@ -20,9 +20,7 @@ include "../config.php"; // Config file
 //MongoDB Config Variables 
 $dbhost= $config["mongo"]["dbhost"];
 $dbname = $config["mongo"]["dbname"];
-// $collection = $config["mongo"]["collection"];
-$collection = "testgully";
-
+$collection = "testing";
 
 // Hypercat API Config Variables 
 $api_key= $config["hypercat-api"]["api_key"];
@@ -83,6 +81,7 @@ do{
 			$gully = new GullySensor($response, $lastupdate);
 			$gullyArray =$gully->create_db_object();
 			if ($gullyArray["la"]!==null)
+				var_dump($gullyArray);
 				$collection->insert($gullyArray);
 		}else{
 			foreach ($cursor as $doc) {
@@ -92,10 +91,10 @@ do{
 					print_r ("Updated Sensor!\n");
 					// Update existing item in MongoDB
 					$response=curl_with_authentication($data_href, $api_key);
-					$gully = new GullySensor($response, $lastupdate);
+					$gully = new GullySensor($response["data"], $lastupdate);
 					$gullyArray =$gully->create_db_object();
-					if ($gullyArray["la"]!==null)
-						$collection->update($query, array('$set'=>$gullyArray));
+			//		if ($gullyArray["la"]!==null)
+			//			$collection->update($query, array('$set'=>$gullyArray));
 				}
 			}
 		}

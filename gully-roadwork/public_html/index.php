@@ -13,7 +13,8 @@
 	  	<script type="text/javascript" src="http://d3js.org/d3.v3.min.js"></script>
 	  	<script type="text/javascript" src="http://d3js.org/topojson.v1.min.js"></script>
 	  	<script type="text/javascript" src="http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js"></script>
-	  	<script type="text/javascript" src="./js/external/nv.d3.min.js"></script>
+	  	<script src="http://open.mapquestapi.com/sdk/leaflet/v1.0/mq-map.js?key=Fmjtd%7Cluur2g61nl%2Crw%3Do5-9az2h0"></script>
+		<script type="text/javascript" src="./js/external/nv.d3.min.js"></script>
 	  	<script type="text/javascript" src="./js/external/crossfilter.min.js"></script>
 	  	<script type="text/javascript" src="./js/external/heatmap-leaflet.js"></script>
 	  	<script type="text/javascript" src="./js/external/heatmap.js"></script>
