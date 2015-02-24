@@ -83,6 +83,9 @@ body {
 	overflow: auto;
 }
 
+#division_chart {
+	height:90%;
+}
 .chart_title{
 	width: 250px;
 	height:10%;

@@ -76,7 +76,6 @@ $(document).ready(function() {
 	      	var region = feature["properties"]["Name"].replace("-"," ");
 	      	var query = JSON.stringify({"region": region});
 	      	query311MapPins("count",query, function(count){
-		        console.log("count = "+count);
 		        if (parseInt(count)>=1000)
 		        	layer.setStyle(veryHigh);
 		        else if (parseInt(count)>=750)
@@ -135,13 +134,11 @@ $(document).ready(function() {
 	//TODO: check if leaflet-control-layers-selector is clicked, 
 	map.on("layerremove", function(){
 		if (!map.hasLayer(regionLayer)){
-			console.log("region layer is NOT here!");
 			$(".leaflet-zoom-animated").css("pointer-events","none");
 		}
 	});
 	map.on("layeradd", function(){
 		if (map.hasLayer(regionLayer)){
-			console.log("region layer is here!");
 			$(".leaflet-zoom-animated").css("pointer-events","auto");
 		}
 	});
@@ -208,7 +205,6 @@ $(document).ready(function() {
 			//build tree object JSON here
 			var departments=new Array();
 			queryDistinctFields ("department", query, function(response){
-				console.log ("department: "+response);
 				var departments = JSON.parse(response);
 				var departmentArray = new Array();
 				$.each(departments, function (i, department) {
@@ -217,7 +213,6 @@ $(document).ready(function() {
 					
 					var divisionQuery = JSON.stringify({"department":department});
 					queryDistinctFields ("division", divisionQuery, function(response){
-						console.log ("department: "+response);
 						var divisions = JSON.parse(response);
 						var divisionArray = new Array();
 						$.each(divisions, function (k, division) {
@@ -240,7 +235,6 @@ $(document).ready(function() {
 			//populate date picker
 			var from_date = new Date("1 "+$("#datasetSelect").val());
 			var to_date = new Date(from_date.getFullYear(), from_date.getMonth()+1, 0);
-			console.log("date "+to_date);
 			$( "#from" ).datepicker({
 		      defaultDate: from_date,
 		      changeMonth: false,
@@ -317,12 +311,10 @@ $(document).ready(function() {
 	        		});
 		        });
 	        	graph_pie_chart(itemArray, "department", "bottom-box", "Case Distribution By Departments", function(e){
-	        		console.log("click slice!"+e.data.label);
 	        		selectedDepartment=e.data.label;
 	        		selectedDivision=null;
 		        	var query = build_mongo_query(selectedRegion, selectedDepartment,selectedDivision);
 	        		query311MapPins("find",query, function(response){
-	        			console.log("department response: "+response);
 	        			var json = JSON.parse(response);
 						var itemArray=new Array();
 						var heatmapArray= new Array();
@@ -433,7 +425,8 @@ $(document).ready(function() {
 				var chart = nv.models.pieChart()
 					.showLegend(false)
 					.x(function(d) { return d.label })
-			        .y(function(d) { return d.value });
+			        .y(function(d) { return d.value })
+				.width(300).height(300);
 			        // .color(myColors);
 
 				chart.pie.pieLabelsOutside(false).labelType("percent");
@@ -546,12 +539,10 @@ $(document).ready(function() {
 	}
 	$( "#datasetSelect" ).change(function() {
 	  initialise_data();
-	  console.log("re-initialise data view");
 	});
 
 	$( "#departmentSelect" ).change(function() {
 	  update_division_dropdown();
-	  console.log("update divison dropdown");
 	});
 
 	$("#map").on('click', function(event) {
@@ -577,7 +568,6 @@ $(document).ready(function() {
 
 	});
 	$("#searchButton").click(function(){
-		console.log("search...");
 		//get dataset
 		var dataset={"dataset": $("#datasetSelect").val()};
 		//get date range
@@ -595,7 +585,6 @@ $(document).ready(function() {
 		var queryString=JSON.stringify({"$and":queryParameters});
 
 		query311MapPins("find",queryString, function(response){
-			console.log("search result: "+response);
 				var json = JSON.parse(response);
 				var itemArray=new Array();
 	           	var heatmapArray=new Array();

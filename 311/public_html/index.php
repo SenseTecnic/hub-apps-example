@@ -39,9 +39,6 @@
 					<input type="text" id="from" name="from" />
 					<label for="to">To: </label>
 					<input type="text" id="to" name="to" />
-
-					<a href="#" id="setFiltersButton" class="button">Optional Filters</a>
-					<a href="#" id="searchButton" class="button">Search</a>
 				</div>
 				<div id="top-left-box">
 					<div id="case_overview_desc" class="description">
@@ -51,31 +48,14 @@
 							<span>Total Cases: 10718</span><br>
 							<span>Highest Case Division: Sanitation</span><br>
 							<span>Lowest Case Type: Street Horticulture</span><br>
-							<!-- Selected Region<br>
-							<span>Region: </span><br>
-							<span>Total Cases: </span><br>
-							<span>Population: </span><br>
-							<span>Highest Case Type: </span><br>
-							<span>Lowest Case Type: </span><br> -->
 						</div>
 					</div>
 					<a href="#" id="resetButton" class="button">Show All</a>
+					<a href="#" id="setFiltersButton" class="button">Filters</a>
+                                        <a href="#" id="searchButton" class="button">Search</a>
 				</div>
 				<div id="top-right-box">
-					<!-- <div>
-						<label for="departmentSelect">Departments: </label>
-						<select id ="departmentSelect">
-							<option value="all">All</option>
-						</select>
-					</div>
-					<div>
-						<label for="divisionSelect">Divisions: </label>
-						<select id ="divisionSelect">
-							<option value="all">All</option>
-						</select>
-					</div> -->
-					<!-- <a href="#" id="filterButton" class="button">Filter</a> -->
-					
+				
 				</div>
 				<div id="bottom-box"></div>
 			</div>
