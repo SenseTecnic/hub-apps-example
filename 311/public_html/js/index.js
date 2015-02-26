@@ -174,7 +174,9 @@ $(document).ready(function() {
 		clear_map();
 		$('#departmentSelect').html('<option value = "all">All</option>');
 		$('#divisionSelect').html('<option value = "all">All</option>');
-		$("#datasetSelect").html("");
+		//$("#datasetSelect").html("");
+		$('#from').datepicker('destroy');
+		$('#to').datepicker('destroy');
 		$("#accordion").html("");
 		queryDistinctFields ("dataset", null, function(response){
 			var items = JSON.parse(response);
