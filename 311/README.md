@@ -4,7 +4,8 @@ This application visualises Vancouver 311 data that is published monthly here: h
 
 Dependencies
 ------------
-- PHP
+- PHP5
+- PHP5 MongoDB module
 - MongoDB
 
 How to Use
